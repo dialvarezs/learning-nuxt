@@ -1,5 +1,5 @@
 import type { TodoItem } from '~/interfaces'
 
-export function getItems() {
+export async function getItems() {
   return useApiFetch<TodoItem[]>('/todo-items')
 }

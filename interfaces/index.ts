@@ -17,3 +17,9 @@ export interface TodoItem {
   assignedTo: User
   categories: Category[]
 }
+
+export interface TodoItemCreate {
+  title: string
+  assignedToId: number | null
+  categories: Category[]
+}
