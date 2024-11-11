@@ -1,4 +1,4 @@
-import { TodoItem } from "~/interfaces";
+import type { TodoItem } from '~/interfaces'
 
 export function getItems() {
   return useApiFetch<TodoItem[]>('/todo-items')

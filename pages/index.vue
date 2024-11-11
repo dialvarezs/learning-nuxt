@@ -1,24 +1,22 @@
 <script setup lang="ts">
-const who = ref("Diego")
+const who = ref('Diego')
 const message = computed(() => `Hola ${who.value}!`)
 
 const counter = ref(0)
-const incrementCounter = () => {
+function incrementCounter() {
   counter.value++
 }
 </script>
 
 <template>
   <div>
-    <input type="text" v-model="who" >
+    <input v-model="who" type="text">
     {{ message }}
   </div>
   <div>
     Contador: {{ counter }}
-    <button @click="incrementCounter">Contador +</button>
+    <button @click="incrementCounter">
+      Contador +
+    </button>
   </div>
 </template>
-
-<style>
-
-</style>
