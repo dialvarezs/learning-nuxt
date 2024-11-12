@@ -1,15 +1,39 @@
 <script setup lang="ts">
-import { getItems } from '~/api/items';
+import { getItems } from '~/api/items'
 
-let { data: myData, execute } = await getItems()
-
+const { data: items, refresh } = await getItems()
 </script>
 
 <template>
   <div>
-    {{ myData }}
-    {{ myData ? myData[0].assignedTo.username : "No hay nada" }}
-
-    <button @click="execute()">Recargar</button>
+    <Button @click="refresh()">
+      Recargar
+    </Button>
+    <DataTable :value="items">
+      <Column field="title" header="Título"></Column>
+      <Column field="done" header="Completado"></Column>
+      <Column field="assignedTo" header="Asignado a">
+        <template #body="{ data }">
+          {{ data.assignedTo.fullname }}
+        </template>
+      </Column>
+      <Column field="categories" header="Categorías">
+        <template #body="{ data }">
+          <div class="space-x-2">
+            <Tag
+            v-for="category in data.categories"
+            :key="category.id"
+            :value="category.name"
+            severity="contrast"
+            :pt="{
+              root: {
+                class: '!py-0'
+              }
+            }"
+            />
+          </div>
+        </template>
+      </Column>
+    </DataTable>
   </div>
 </template>

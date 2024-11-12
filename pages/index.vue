@@ -1,21 +1,20 @@
 <script setup lang="ts">
-const who = ref("Diego")
-const message = computed(() => `Hola ${who.value}!`)
+import { getItems } from '~/api/items'
 
-const counter = ref(0)
-const incrementCounter = () => {
-  counter.value++
+const { data: items } = await getItems()
+
+function showCompleteAlert(id: number) {
+  alert(`Completado evento ${id}`)
 }
 </script>
 
 <template>
-  <div>
-    <input type="text" v-model="who" >
-    {{ message }}
-  </div>
-  <div>
-    Contador: {{ counter }}
-    <button @click="incrementCounter">Contador +</button>
+  <div class="grid grid-cols-4 gap-4">
+    <TodoItemCard
+    v-for="item in items" :key="item.id"
+    :item="item"
+    @complete="showCompleteAlert(item.id)"
+  ></TodoItemCard>
   </div>
 </template>
 
