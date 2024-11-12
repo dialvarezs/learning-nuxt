@@ -11,6 +11,10 @@ const menuItems: MenuItem[] = [
     ],
   },
 ];
+
+function toggleDarkMode() {
+  document.documentElement.classList.toggle("my-app-dark");
+}
 </script>
 
 <template>
@@ -33,6 +37,9 @@ const menuItems: MenuItem[] = [
               <span v-if="hasSubmenu">></span>
             </a>
           </NuxtLink>
+        </template>
+        <template #end>
+          <button @click="toggleDarkMode">Toggle Dark Mode</button>
         </template>
       </Menubar>
     </header>
