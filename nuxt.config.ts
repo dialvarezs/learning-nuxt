@@ -9,10 +9,10 @@ export default defineNuxtConfig({
     options: {
       theme: {
         preset: Aura,
-      }
-    }
+      },
+    },
   },
   css: [
-    '~/assets/css/tailwind.css'
-  ]
+    '~/assets/css/tailwind.css',
+  ],
 })

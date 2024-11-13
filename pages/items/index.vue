@@ -10,8 +10,8 @@ const { data: items, refresh } = await getItems()
       Recargar
     </Button>
     <DataTable :value="items">
-      <Column field="title" header="Título"></Column>
-      <Column field="done" header="Completado"></Column>
+      <Column field="title" header="Título" />
+      <Column field="done" header="Completado" />
       <Column field="assignedTo" header="Asignado a">
         <template #body="{ data }">
           {{ data.assignedTo.fullname }}
@@ -21,15 +21,15 @@ const { data: items, refresh } = await getItems()
         <template #body="{ data }">
           <div class="space-x-2">
             <Tag
-            v-for="category in data.categories"
-            :key="category.id"
-            :value="category.name"
-            severity="contrast"
-            :pt="{
-              root: {
-                class: '!py-0'
-              }
-            }"
+              v-for="category in data.categories"
+              :key="category.id"
+              :value="category.name"
+              severity="contrast"
+              :pt="{
+                root: {
+                  class: '!py-0',
+                },
+              }"
             />
           </div>
         </template>

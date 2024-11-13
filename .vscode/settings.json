@@ -46,5 +46,8 @@
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
+  "[vue]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
 }

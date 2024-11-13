@@ -13,7 +13,7 @@ const { execute: saveItem, status: saveStatus } = await createItem(item)
 
 async function saveAndRedirect() {
   await saveItem()
-  navigateTo("/items")
+  navigateTo('/items')
 }
 </script>
 
@@ -24,10 +24,17 @@ async function saveAndRedirect() {
       <label for="itemTitle">Título</label>
     </FloatLabel>
     <FloatLabel class="w-full md:w-96">
-      <Select id="itemAssignedTo" v-model="item.assignedToId" :options="users || []" option-label="fullname" option-value="id" class="w-full" />
+      <Select
+        id="itemAssignedTo"
+        v-model="item.assignedToId"
+        :options="users || []"
+        option-label="fullname"
+        option-value="id"
+        class="w-full"
+      />
       <label for="itemAssignedTo">Asignado a</label>
     </FloatLabel>
-    <Button @click="saveAndRedirect" :loading="saveStatus === 'pending'">
+    <Button :loading="saveStatus === 'pending'" @click="saveAndRedirect">
       Guardar
     </Button>
   </div>

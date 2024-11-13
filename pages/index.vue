@@ -11,10 +11,11 @@ function showCompleteAlert(id: number) {
 <template>
   <div class="grid grid-cols-4 gap-4">
     <TodoItemCard
-    v-for="item in items" :key="item.id"
-    :item="item"
-    @complete="showCompleteAlert(item.id)"
-  ></TodoItemCard>
+      v-for="item in items"
+      :key="item.id"
+      :item="item"
+      @complete="showCompleteAlert(item.id)"
+    />
   </div>
 </template>
 
