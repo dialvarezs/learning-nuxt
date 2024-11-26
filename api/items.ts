@@ -1,4 +1,4 @@
-import type { TodoItem, TodoItemCreate } from '~/interfaces'
+import type { TodoItem, TodoItemCreate, TodoItemUpdate } from '~/interfaces'
 
 export function getItems() {
   return useApiFetch<TodoItem[]>('/todo-items')
@@ -10,5 +10,14 @@ export function createItem(item: TodoItemCreate) {
     immediate: false,
     watch: false,
     body: item,
+  })
+}
+
+export function updateItem(id: number, itemData: TodoItemUpdate) {
+  return useApiFetch<TodoItem>(`/todo-items/${id}`, {
+    method: 'PATCH',
+    immediate: false,
+    watch: false,
+    body: itemData,
   })
 }

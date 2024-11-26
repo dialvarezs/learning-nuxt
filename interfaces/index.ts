@@ -1,3 +1,13 @@
+export interface LoginData {
+  username: string
+  password: string
+}
+
+export interface Token {
+  accessToken: string
+  tokenType: string
+}
+
 export interface User {
   id: number
   username: string
@@ -16,6 +26,13 @@ export interface TodoItem {
   assignedToId: number
   assignedTo: User
   categories: Category[]
+}
+
+export interface TodoItemUpdate {
+  title?: string
+  done?: boolean
+  assignedToId?: number
+  categories?: Category[]
 }
 
 export interface TodoItemCreate {
