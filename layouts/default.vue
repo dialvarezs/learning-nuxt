@@ -25,7 +25,7 @@ const menuItems: MenuItem[] = [
         </template>
       </Menubar>
     </div>
-    <div class="h-full flex items-center justify-center">
+    <div class="container mx-auto h-full flex items-center justify-center">
       <slot />
     </div>
   </div>

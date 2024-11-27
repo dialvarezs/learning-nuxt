@@ -3,14 +3,10 @@ import { sendLogin } from '~/api/accounts'
 
 const username = ref('')
 const password = ref('')
+const { execute, status } = await sendLogin(username.value, password.value)
 
 function login() {
-  try {
-    sendLogin(username.value, password.value)
-  }
-  catch (error) {
-    console.error(error)
-  }
+  execute()
 }
 </script>
 
@@ -26,7 +22,11 @@ function login() {
           <Password id="password" v-model="password" toggle-mask fluid :feedback="false" />
           <label for="password">Contraseña</label>
         </FloatLabel>
-        <Button fluid @click="login">
+        {{ status }}
+        <Message v-if="status === 'error'" severity="error">
+          Error al iniciar sesión
+        </Message>
+        <Button fluid :loading="status === 'pending'" @click="login">
           Iniciar sesión
         </Button>
       </div>

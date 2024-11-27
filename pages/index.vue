@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getItems, updateItem } from '~/api/items'
-import type { TodoItemUpdate } from '~/interfaces';
+import type { TodoItemUpdate } from '~/interfaces'
 
 const { data: items } = await getItems()
 
@@ -16,7 +16,7 @@ async function completeItem(id: number) {
 </script>
 
 <template>
-  <div class="grid grid-cols-4 gap-4">
+  <div class="w-full grid grid-cols-4 gap-4">
     <TodoItemCard
       v-for="item in items"
       :key="item.id"

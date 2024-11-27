@@ -5,11 +5,13 @@ export function getUsers() {
 }
 
 export function sendLogin(username: string, password: string) {
-  return useNuxtApp().$api<loginResponse>('/auth/login', {
+  return useApi<loginResponse>('/auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({ username, password }).toString(),
+    immediate: false,
+    watch: false,
   })
 }
