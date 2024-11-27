@@ -1,6 +1,6 @@
-export interface LoginData {
-  username: string
-  password: string
+export interface loginResponse {
+  accessToken: string
+  tokenType: string
 }
 
 export interface Token {

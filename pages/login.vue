@@ -1,6 +1,17 @@
 <script lang="ts" setup>
+import { sendLogin } from '~/api/accounts'
+
 const username = ref('')
 const password = ref('')
+
+function login() {
+  try {
+    sendLogin(username.value, password.value)
+  }
+  catch (error) {
+    console.error(error)
+  }
+}
 </script>
 
 <template>
@@ -15,7 +26,7 @@ const password = ref('')
           <Password id="password" v-model="password" toggle-mask fluid :feedback="false" />
           <label for="password">Contraseña</label>
         </FloatLabel>
-        <Button fluid>
+        <Button fluid @click="login">
           Iniciar sesión
         </Button>
       </div>
