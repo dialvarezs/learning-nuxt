@@ -7,9 +7,9 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!user.value)
 
-  function authenticate(loginData: LoginData) {
+  // function authenticate(loginData: LoginData) {
 
-  }
+  // }
 
   function setUser(newUser: User) {
     user.value = newUser

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { MenuItem } from 'primevue/menuitem'
 
+const authStore = useAuthStore()
+
 const menuItems: MenuItem[] = [
   { label: 'Inicio', route: '/' },
   { label: 'Items', items: [
@@ -11,19 +13,21 @@ const menuItems: MenuItem[] = [
 </script>
 
 <template>
-  <div>
-    <Menubar :model="menuItems">
-      <template #item="{ item, props }">
-        <NuxtLink :to="item.route">
-          <a v-ripple v-bind="props.action">
-            <span>{{ item.label }}</span>
-          </a>
-        </NuxtLink>
-      </template>
-    </Menubar>
-  </div>
-  <div class="py-4 px-W8">
-    <slot />
+  <div class="h-screen">
+    <div v-if="authStore.isAuthenticated">
+      <Menubar :model="menuItems">
+        <template #item="{ item, props }">
+          <NuxtLink :to="item.route">
+            <a v-ripple v-bind="props.action">
+              <span>{{ item.label }}</span>
+            </a>
+          </NuxtLink>
+        </template>
+      </Menubar>
+    </div>
+    <div class="h-full flex items-center justify-center">
+      <slot />
+    </div>
   </div>
 </template>
 

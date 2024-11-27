@@ -1,7 +1,7 @@
 import type { LoginData, User } from '~/interfaces'
 
 export function getUsers() {
-  return useApiFetch<User[]>('/users')
+  return useApi<User[]>('/users')
 }
 
 export function login(loginData: LoginData) {
