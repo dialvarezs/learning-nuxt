@@ -1,5 +1,4 @@
-import { defineStore } from 'pinia'
-import type { LoginData, Token, User } from '~/interfaces'
+import type { LoginResponse, Token, User } from '~/interfaces'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null)
@@ -7,9 +6,12 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!user.value)
 
-  // function authenticate(loginData: LoginData) {
-
-  // }
+  function setToken(tokenData: LoginResponse) {
+    token.value = {
+      accessToken: tokenData.accessToken,
+      tokenType: tokenData.tokenType,
+    }
+  }
 
   function setUser(newUser: User) {
     user.value = newUser
@@ -24,6 +26,7 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     token,
     isAuthenticated,
+    setToken,
     setUser,
     logout,
   }

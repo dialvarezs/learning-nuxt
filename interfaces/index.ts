@@ -1,11 +1,10 @@
-export interface loginResponse {
+export interface Token {
   accessToken: string
   tokenType: string
 }
 
-export interface Token {
-  accessToken: string
-  tokenType: string
+export interface LoginResponse extends Token {
+  expiresIn: number
 }
 
 export interface User {

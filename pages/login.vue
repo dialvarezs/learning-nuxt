@@ -1,12 +1,32 @@
 <script lang="ts" setup>
-import { sendLogin } from '~/api/accounts'
+import { getMyUser, sendLogin } from '~/api/accounts'
 
+const authStore = useAuthStore()
 const username = ref('')
 const password = ref('')
-const { execute, status } = await sendLogin(username.value, password.value)
+const error = ref('')
+const loading = ref(false)
 
-function login() {
-  execute()
+async function login() {
+  try {
+    error.value = ''
+    loading.value = true
+    const tokenData = await sendLogin(username.value, password.value)
+    // Save token in the store
+    authStore.setToken(tokenData)
+
+    const { data: user } = await getMyUser()
+    if (user.value) {
+      authStore.setUser(user.value)
+    }
+  }
+  catch (e) {
+    error.value = 'Error al iniciar sesión'
+    console.error(e)
+  }
+  finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -22,11 +42,10 @@ function login() {
           <Password id="password" v-model="password" toggle-mask fluid :feedback="false" />
           <label for="password">Contraseña</label>
         </FloatLabel>
-        {{ status }}
-        <Message v-if="status === 'error'" severity="error">
+        <Message v-if="error !== ''" severity="error">
           Error al iniciar sesión
         </Message>
-        <Button fluid :loading="status === 'pending'" @click="login">
+        <Button fluid :loading="loading" @click="login">
           Iniciar sesión
         </Button>
       </div>
