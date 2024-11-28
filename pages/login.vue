@@ -1,24 +1,37 @@
 <script lang="ts" setup>
-import { getMyUser, sendLogin } from '~/api/accounts'
+import { getCurrentUser, sendLogin } from '~/api/accounts'
 
-const authStore = useAuthStore()
 const username = ref('')
 const password = ref('')
 const error = ref('')
 const loading = ref(false)
 
+const authStore = useAuthStore()
+const toast = useToast()
+
 async function login() {
   try {
     error.value = ''
     loading.value = true
+    // Get and save token in the store
     const tokenData = await sendLogin(username.value, password.value)
-    // Save token in the store
     authStore.setToken(tokenData)
 
-    const { data: user } = await getMyUser()
+    // Get and save user in the store
+    const { data: user } = await getCurrentUser()
     if (user.value) {
       authStore.setUser(user.value)
     }
+
+    // Show a message
+    toast.add({
+      severity: 'success',
+      summary: 'Inicio de sesión exitoso',
+      detail: `Bienvenido de nuevo, ${user.value?.fullname}`,
+      life: 2000,
+    })
+
+    navigateTo('/')
   }
   catch (e) {
     error.value = 'Error al iniciar sesión'
@@ -28,6 +41,9 @@ async function login() {
     loading.value = false
   }
 }
+
+// Clear the store data when the component is mounted
+authStore.clearData()
 </script>
 
 <template>

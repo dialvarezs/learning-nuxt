@@ -6,7 +6,7 @@ const { data: items, refresh } = await getItems()
 
 <template>
   <div>
-    <Button @click="refresh()">
+    <Button class="mb-4" @click="refresh()">
       Recargar
     </Button>
     <DataTable :value="items">

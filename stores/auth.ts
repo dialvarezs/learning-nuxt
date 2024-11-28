@@ -1,10 +1,11 @@
+import { StorageSerializers } from '@vueuse/core'
 import type { LoginResponse, Token, User } from '~/interfaces'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User | null>(null)
-  const token = ref<Token | null>(null)
+  const user: Ref<User | null> = useLocalStorage('user', null, { serializer: StorageSerializers.object })
+  const token: Ref<Token | null> = useLocalStorage('token', null, { serializer: StorageSerializers.object })
 
-  const isAuthenticated = computed(() => !!user.value)
+  const isAuthenticated = computed(() => !!token.value)
 
   function setToken(tokenData: LoginResponse) {
     token.value = {
@@ -14,10 +15,14 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function setUser(newUser: User) {
-    user.value = newUser
+    user.value = {
+      id: newUser.id,
+      username: newUser.username,
+      fullname: newUser.fullname,
+    }
   }
 
-  function logout() {
+  function clearData() {
     user.value = null
     token.value = null
   }
@@ -28,6 +33,6 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated,
     setToken,
     setUser,
-    logout,
+    clearData,
   }
 })

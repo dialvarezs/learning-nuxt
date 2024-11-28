@@ -4,17 +4,19 @@ export function getUsers() {
   return useApi<User[]>('/users')
 }
 
-export function getMyUser() {
+export function getCurrentUser() {
   return useApi<User>('/users/me')
 }
 
 export function sendLogin(username: string, password: string) {
+  const loginData = new URLSearchParams({ username, password })
+
   return useNuxtApp().$api<LoginResponse>('/auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      // 'Credentials': 'none',
+      'Credentials': 'none',
     },
-    body: new URLSearchParams({ username, password }).toString(),
+    body: loginData.toString(),
   })
 }
